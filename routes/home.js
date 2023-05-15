@@ -9,6 +9,7 @@ const homeController = require('../controllers/home_controller');
 
 // Define the route handler for the root path ("/")
 router.get('/', homeController.home);
+router.use('/users',require('./users'));
 
 // Export the router to be used in other parts of the application
 module.exports = router;
