@@ -2,10 +2,27 @@ const User = require('../models/Users');
 const { registerValidation, loginValidation } = require('../validation');
 const bcryptjs = require('bcryptjs');
 
-module.exports.profile = (req, res) => {
-    return res.render('profile', {
-        title: "Profile page"
-    });
+module.exports.profile = async (req, res) => {
+    try {
+        const user_id = req.cookies.user_id;
+        if (!user_id) {
+            return res.redirect('/users/sign-in');
+        }
+
+        const user = await User.findById(user_id);
+
+        if (!user) {
+            return res.redirect('/users/sign-in');
+        }
+
+        return res.render('profile', {
+            title: "User Profile",
+            user: user
+        });
+    } catch (err) {
+        console.error(err);
+        return res.redirect('/users/login');
+    };
 };
 
 module.exports.Sign_Up = (req, res) => {
@@ -42,7 +59,7 @@ module.exports.register = async (req, res) => {
         });
     try {
         await newUser.save();
-        res.status(201).redirect('/users/user_sign_in');
+        res.status(201).redirect('/users/login');
     } catch (err) {
         return res.status(400).send(err);
     }
@@ -63,4 +80,9 @@ module.exports.login = async (req,res)=>{
     }
     res.cookie('user_id',user.id);
     return res.status(201).redirect('/users/profile');
+}
+
+module.exports.destroy = (req,res)=>{
+    res.clearCookie('user_id');
+    return res.redirect('/');
 }

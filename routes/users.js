@@ -10,4 +10,6 @@ router.get('/register',userController.Sign_Up);
 router.post('/login',userController.login);
 router.post('/register',userController.register);
 
+router.get('/destroy',userController.destroy);
+
 module.exports = router;
