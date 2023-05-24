@@ -27,14 +27,14 @@ module.exports.profile = async (req, res) => {
 };
 
 // Render user registration page
-module.exports.Sign_Up = (req, res) => {
+module.exports.renderSignUp = (req, res) => {
     return res.render('user_sign_up', {
         title: 'Register',
     });
 };
 
 // Render user login page
-module.exports.Sign_In = (req, res) => {
+module.exports.renderSignIn = (req, res) => {
     return res.render('user_sign_in', {
         title: 'Login',
     });
@@ -88,7 +88,9 @@ module.exports.login = async (req, res) => {
             return res.status(401).send('Password incorrect');
         }
         
-        return res.status(201).redirect('/users/profile');
+        // Set user_id in cookies and redirect to profile page
+        res.cookie('user_id', user._id);
+        return res.redirect('/users/profile');
     } catch (err) {
         console.error(err);
         return res.redirect('/users/login');
