@@ -1,3 +1,23 @@
-<p>
-    header
-</p>
+<div>
+    <nav>\
+        <div>
+            <p>Authentication</p>
+        </div>
+        <div>
+            <ul>
+                <%if(locals.user){%>
+                    <li>
+                        <a href="/users/profile/<%= user.id %>"><%= user.name %></a>
+                    </li>
+                    <%}else{%>
+                    <li>
+                        <a href="/users/login">Sign-In</a>
+                    </li>
+                    <li>
+                        <a href="/users/register">Sign-Up</a>
+                    </li>
+                <%}%>
+            </ul>
+        </div>
+    </nav>
+</div>
