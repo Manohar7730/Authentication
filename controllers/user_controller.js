@@ -87,8 +87,7 @@ module.exports.login = async (req, res) => {
         if (!validPass) {
             return res.status(401).send('Password incorrect');
         }
-
-        res.cookie('user_id', user._id);
+        
         return res.status(201).redirect('/users/profile');
     } catch (err) {
         console.error(err);
