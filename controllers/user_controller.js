@@ -1,45 +1,49 @@
-const User = require('../models/Users');
-const { registerValidation, loginValidation } = require('../validation');
+const User = require('../models/User');
+const { validateRegistration, validateLogin } = require('../validation');
 const bcryptjs = require('bcryptjs');
 
+// Render user profile page
 module.exports.profile = async (req, res) => {
     try {
         const user_id = req.cookies.user_id;
         if (!user_id) {
-            return res.redirect('/users/sign-in');
+            return res.redirect('/users/login');
         }
 
         const user = await User.findById(user_id);
 
         if (!user) {
-            return res.redirect('/users/sign-in');
+            return res.redirect('/users/login');
         }
 
         return res.render('profile', {
-            title: "User Profile",
-            user: user
+            title: 'User Profile',
+            user: user,
         });
     } catch (err) {
         console.error(err);
         return res.redirect('/users/login');
-    };
+    }
 };
 
+// Render user registration page
 module.exports.Sign_Up = (req, res) => {
     return res.render('user_sign_up', {
-        title: "Register"
+        title: 'Register',
     });
 };
 
+// Render user login page
 module.exports.Sign_In = (req, res) => {
     return res.render('user_sign_in', {
-        title: "Login"
+        title: 'Login',
     });
 };
 
+// Handle user registration
 module.exports.register = async (req, res) => {
-    
-        const { error } = registerValidation(req.body);
+    try {
+        const { error } = validateRegistration(req.body);
         if (error) {
             return res.status(400).send('Invalid Credentials');
         }
@@ -55,34 +59,45 @@ module.exports.register = async (req, res) => {
         const newUser = new User({
             name: req.body.name,
             email: req.body.email,
-            password: hashedPassword
+            password: hashedPassword,
         });
-    try {
+
         await newUser.save();
         res.status(201).redirect('/users/login');
     } catch (err) {
-        return res.status(400).send(err);
+        console.error(err);
+        return res.status(400).send(err.message);
     }
 };
 
-module.exports.login = async (req,res)=>{
-    const{error} = loginValidation(req.body);
-    if(error){
-        return res.status(401).send("Invalid Credentials");
-    }
-    const user = await User.findOne({email:req.body.email});
-    if(!user){
-        return res.status(401).send('User not found');
-    }
-    const validPass = await bcryptjs.compare(req.body.password ,user.password);
-    if(!validPass){
-        return res.status(401).send('Password wrong');
-    }
-    res.cookie('user_id',user.id);
-    return res.status(201).redirect('/users/profile');
-}
+// Handle user login
+module.exports.login = async (req, res) => {
+    try {
+        const { error } = validateLogin(req.body);
+        if (error) {
+            return res.status(401).send('Invalid Credentials');
+        }
 
-module.exports.destroy = (req,res)=>{
+        const user = await User.findOne({ email: req.body.email });
+        if (!user) {
+            return res.status(401).send('User not found');
+        }
+
+        const validPass = await bcryptjs.compare(req.body.password, user.password);
+        if (!validPass) {
+            return res.status(401).send('Password incorrect');
+        }
+
+        res.cookie('user_id', user._id);
+        return res.status(201).redirect('/users/profile');
+    } catch (err) {
+        console.error(err);
+        return res.redirect('/users/login');
+    }
+};
+
+// Handle user logout
+module.exports.logout = (req, res) => {
     res.clearCookie('user_id');
     return res.redirect('/');
-}
+};

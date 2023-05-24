@@ -2,14 +2,17 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user_controller');
 
-router.get('/profile',userController.profile);
+// User profile route
+router.get('/profile', userController.profile);
 
-router.get('/login',userController.Sign_In);
-router.get('/register',userController.Sign_Up);
+// User login and registration routes
+router.get('/login', userController.Sign_In);
+router.get('/register', userController.Sign_Up);
 
-router.post('/login',userController.login);
-router.post('/register',userController.register);
+router.post('/login', userController.login);
+router.post('/register', userController.register);
 
-router.get('/destroy',userController.destroy);
+// User logout route
+router.get('/logout', userController.logout);
 
 module.exports = router;
