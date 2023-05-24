@@ -2,27 +2,30 @@ const User = require('../models/Users');
 const { registerValidation, loginValidation } = require('../validation');
 const bcryptjs = require('bcryptjs');
 
+// Render user profile page
 module.exports.profile = (req, res) => {
-    return res.render('profile', {
-        title: "Profile page",
-        user : User
-    });
+        return res.render('profile', {
+            title: 'User Profile'
+        });
 };
 
+// Render user registration page
 module.exports.Sign_Up = (req, res) => {
     return res.render('user_sign_up', {
-        title: "Register"
+        title: 'Register',
     });
 };
 
+// Render user login page
 module.exports.Sign_In = (req, res) => {
     return res.render('user_sign_in', {
-        title: "Login"
+        title: 'Login',
     });
 };
 
+// Handle user registration
 module.exports.register = async (req, res) => {
-    
+    try {
         const { error } = registerValidation(req.body);
         if (error) {
             return res.status(400).send('Invalid Credentials');
@@ -39,29 +42,36 @@ module.exports.register = async (req, res) => {
         const newUser = new User({
             name: req.body.name,
             email: req.body.email,
-            password: hashedPassword
+            password: hashedPassword,
         });
-    try {
+
         await newUser.save();
-        res.status(201).redirect('/users/user_sign_in');
+        res.status(201).redirect('/users/login');
     } catch (err) {
-        return res.status(400).send(err);
+        console.error(err);
+        return res.status(400).send(err.message);
     }
 };
 
 module.exports.login = async (req,res)=>{
-    const{error} = loginValidation(req.body);
+    const {error} = loginValidation(req.body);
     if(error){
-        return res.status(401).send("Invalid Credentials");
+        return res.status(401).send('Invalid Credentials')
     }
-    const user = await User.findOne({email:req.body.email});
+
+    const user = await User.findOne({email : req.body.email})
     if(!user){
-        return res.status(401).send('User not found');
+        return res.status(401).send('User not found')
     }
-    const validPass = await bcryptjs.compare(req.body.password ,user.password);
+
+    const validPass = await bcryptjs.compare(req.body.password,user.password)
     if(!validPass){
-        return res.status(401).send('Password wrong');
+        return res.status(401).send('Invalid Password / Username')
     }
-    res.cookie('user_id',user.id);
-    return res.status(201).redirect('/users/profile');
+    try{
+    return res.redirect('/users/profile');
+}catch (err) {
+        console.error(err);
+        return res.status(400).send(err.message);
+    }
 }
