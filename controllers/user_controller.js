@@ -69,7 +69,14 @@ module.exports.login =  async (req,res)=>{
         return res.status(401).send('Invalid Password / Username')
     }
     try{
-    return res.redirect('/users/profile');
+
+        req.login(user,(err)=>{
+            if(err){
+                console.error(err);
+        return res.status(500).send('Internal Server Error');
+            }
+            return res.redirect('/users/profile')
+        })
 }catch (err) {
         console.error(err);
         return res.status(400).send(err.message);
