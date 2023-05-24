@@ -4,9 +4,9 @@ const bcryptjs = require('bcryptjs');
 
 // Render user profile page
 module.exports.profile = (req, res) => {
-        return res.render('profile', {
-            title: 'User Profile'
-        });
+    return res.render('profile', {
+        title: 'User Profile'
+    });
 };
 
 // Render user registration page
@@ -53,32 +53,42 @@ module.exports.register = async (req, res) => {
     }
 };
 
-module.exports.login =  async (req,res)=>{
-    const {error} = loginValidation(req.body);
-    if(error){
+module.exports.login = async (req, res) => {
+    const { error } = loginValidation(req.body);
+    if (error) {
         return res.status(401).send('Invalid Credentials')
     }
 
-    const user = await User.findOne({email : req.body.email})
-    if(!user){
+    const user = await User.findOne({ email: req.body.email })
+    if (!user) {
         return res.status(401).send('User not found')
     }
 
-    const validPass = await bcryptjs.compare(req.body.password,user.password)
-    if(!validPass){
+    const validPass = await bcryptjs.compare(req.body.password, user.password)
+    if (!validPass) {
         return res.status(401).send('Invalid Password / Username')
     }
-    try{
+    try {
 
-        req.login(user,(err)=>{
-            if(err){
+        req.login(user, (err) => {
+            if (err) {
                 console.error(err);
-        return res.status(500).send('Internal Server Error');
+                return res.status(500).send('Internal Server Error');
             }
             return res.redirect('/users/profile')
         })
-}catch (err) {
+    } catch (err) {
         console.error(err);
         return res.status(400).send(err.message);
     }
+}
+
+module.exports.logout = (req, res) => {
+    req.logout(function(user,err){
+        if(err){
+           return res.send('Cannot logout')
+        }
+        return res.redirect('/');
+
+    });
 }
