@@ -53,7 +53,7 @@ module.exports.register = async (req, res) => {
     }
 };
 
-module.exports.login =  = async (req,res)=>{
+module.exports.login =  async (req,res)=>{
     const {error} = loginValidation(req.body);
     if(error){
         return res.status(401).send('Invalid Credentials')
