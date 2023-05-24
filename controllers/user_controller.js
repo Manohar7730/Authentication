@@ -43,12 +43,25 @@ module.exports.register = async (req, res) => {
         });
     try {
         await newUser.save();
-        res.status(201).render('user_sign_in');
+        res.status(201).redirect('/users/user_sign_in');
     } catch (err) {
         return res.status(400).send(err);
     }
 };
 
 module.exports.login = async (req,res)=>{
-    // todo
+    const{error} = loginValidation(req.body);
+    if(error){
+        return res.status(401).send("Invalid Credentials");
+    }
+    const user = await User.findOne({email:req.body.email});
+    if(!user){
+        return res.status(401).send('User not found');
+    }
+    const validPass = await bcryptjs.compare(req.body.password ,user.password);
+    if(!validPass){
+        return res.status(401).send('Password wrong');
+    }
+    res.cookie('user_id',user.id);
+    return res.status(201).redirect('/users/profile');
 }
