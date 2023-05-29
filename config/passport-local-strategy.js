@@ -30,9 +30,9 @@ passport.serializeUser(function (user, done) {
     done(null, user.id)
 })
 
-passport.deserializeUser(function (id, done) {
+passport.deserializeUser(async function (id, done) {
     try {
-        const user = User.findById(id);
+        const user = await User.findById(id);
         if (!user) {
             return done(null,false)
         }
@@ -46,7 +46,7 @@ passport.checkAuthentication = function (req, res, next) {
     if (req.isAuthenticated()) {
         return next()
     }
-    return res.redirect('back')
+    return res.redirect('/users/login')
 }
 
 passport.setAuthenticatedUser = function (req, res, next) {

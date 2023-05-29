@@ -11,6 +11,9 @@ module.exports.profile = (req, res) => {
 
 // Render user registration page
 module.exports.Sign_Up = (req, res) => {
+    if(req.isAuthenticated()){
+        res.redirect('/users/profile')
+    }
     return res.render('user_sign_up', {
         title: 'Register',
     });
@@ -18,6 +21,9 @@ module.exports.Sign_Up = (req, res) => {
 
 // Render user login page
 module.exports.Sign_In = (req, res) => {
+    if(req.isAuthenticated()){
+        res.redirect('/users/profile')
+    }
     return res.render('user_sign_in', {
         title: 'Login',
     });
