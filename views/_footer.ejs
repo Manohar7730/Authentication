@@ -1,3 +1,18 @@
-<p>
-    footer
-</p>
+<link rel="stylesheet" href="/css/footer.css">
+<footer id="layout-footer">
+    <div class="copyright">
+        <p>
+            &#169; Authentication. All Rights Reserved
+        </p>
+    </div>
+    <div class="auth-links">
+        <ul>
+            <li><a href="/">Home</a></li>
+                <% if(locals.user){%>
+                    <li>
+                        <a href="/users/profile"><%= user.name %></a>
+                    </li>
+                <%}%>
+        </ul>
+    </div>
+</footer>

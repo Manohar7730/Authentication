@@ -1,0 +1,34 @@
+#layout-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: lightgray;
+  padding: 10px;
+}
+
+#layout-footer .copyright {
+  margin-right: auto;
+}
+
+#layout-footer .auth-links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+#layout-footer .auth-links ul li {
+  margin-left: 10px;
+}
+
+#layout-footer .auth-links ul li a {
+  text-decoration: none;
+  color: black;
+  margin-left: 0;
+}
