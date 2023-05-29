@@ -10,7 +10,7 @@ module.exports.profile = async (req, res) => {
         }
 
         // Render the user profile view with the user data
-        return res.render('profile', { title: 'User Profile', user: user });
+        return res.render('profile', {  title: `${user.name} Profile`, user: user });
     } catch (err) {
         console.error(err);
         return res.render('error', { title: 'Error', error: err });
