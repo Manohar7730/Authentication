@@ -1,3 +1,8 @@
+
+<% if (message) { %>
+    <p><%= message %></p>
+<% } %>
+
 <fieldset>
     <legend>Register form</legend>
     <form action="/users/register" method="post">
@@ -16,3 +21,5 @@
         <input type="submit" value="Register">
     </form>
 </fieldset>
+
+<a href="/users/login">Already have an account? Login here</a>

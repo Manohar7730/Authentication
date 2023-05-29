@@ -10,7 +10,7 @@ const registerValidation = (data) => {
     });
 
     return schema.validate(data);
-}
+};
 
 // Validation for user login
 const loginValidation = (data) => {
@@ -20,6 +20,6 @@ const loginValidation = (data) => {
     });
 
     return schema.validate(data);
-}
+};
 
 module.exports = { registerValidation, loginValidation };

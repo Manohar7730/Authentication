@@ -1,5 +1,10 @@
     <link rel="stylesheet" href="/css/profile.css">
     <p>Profile</p>
 
-    <li><%= user.name %></li>
-    <li><%= user.email %></li>
+
+    <% if (user) { %>
+        <p>Name: <%= user.name %></p>
+        <p>Email: <%= user.email %></p>
+    <% } else { %>
+        <p>User not found</p>
+    <% } %>

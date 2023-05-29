@@ -1,3 +1,7 @@
+<% if (typeof message !== 'undefined') { %>
+    <p><%= message %></p>
+<% } %>
+
 <fieldset>
     <legend>Login Form</legend>
     <form action="/users/login" method="post">
@@ -10,3 +14,5 @@
         <input type="submit" value="Login">
     </form>
 </fieldset>
+
+<a href="/users/register">Don't have an account? Register here</a>

@@ -5,7 +5,6 @@ const env = require('dotenv').config();
 const db = require('./config/mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 
@@ -32,8 +31,12 @@ app.use(
     saveUninitialized: false,
     resave: false,
     maxAge: 1000 * 60 * 10,
-    store: MongoStore.create({ mongoUrl: process.env.MONGO_URL,autoRemove:'disabled'},function(err){
-        console.log(err || 'connect-mongodb setup ok')
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URL,
+      mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
+      autoRemove: 'disabled'
+    }, function(err){
+      console.log(err || 'connect-mongodb setup ok');
     }),
   })
 );
