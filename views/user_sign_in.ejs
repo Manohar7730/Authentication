@@ -1,14 +1,30 @@
+<link rel="stylesheet" href="/css/login.css">
+<div class="login-card">
+
 <fieldset>
     <legend>Login Form</legend>
     <form action="/users/login" method="post">
         <input type="email" name="email" placeholder="Email ID">
         <br>
         <br>
-        <input type="password" name="password" placeholder="password">
+        <input type="password" name="password" id="login-password" placeholder="password">
+        <input type="checkbox" onclick="togglePasswordVisibility('login-password')"> Show password
         <br>
         <br>
         <input type="submit" value="Login">
     </form>
 </fieldset>
-
+<div id="register">
 <a href="/users/register">Don't have an account? Register here</a>
+</div>
+</div>
+<script>
+    function togglePasswordVisibility(passwordFieldId) {
+    const passwordField = document.getElementById(passwordFieldId);
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+    } else {
+        passwordField.type = "password";
+    }
+}
+</script>

@@ -1,2 +1,29 @@
-    <link rel="stylesheet" href="/css/home.css">
-    <p>home</p>
+<link rel="stylesheet" href="/css/home.css">
+<header>
+    <p>Home</p>
+</header>
+<%if(locals.user){%>
+<section id="feed-posts">
+    <h4>Posts</h4>
+    <form action="/post/create" method="post" id="new-post-form">
+        <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
+        <input type="submit" value="Post">
+    </form>
+<%}%>
+    <div id="post-list-container">
+        <ul>
+            <%for(post of posts){%>
+                <li>
+                    <p>
+                        <%= post.content %>
+                            <br>
+                            <small>
+                                <%= post.user.name %>
+                            </small>
+                    </p>
+
+                </li>
+                <%}%>
+        </ul>
+    </div>
+</section>
