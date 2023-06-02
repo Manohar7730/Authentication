@@ -4,7 +4,7 @@ module.exports.home = async (req, res) => {
     try{
         const posts = await Post.find({}).populate('user');
         return res.render('home', {
-            title: 'home',
+            title: 'Home Page',
             posts : posts
         });
     }catch(err){
