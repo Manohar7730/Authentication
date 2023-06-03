@@ -1,23 +1,23 @@
 <link rel="stylesheet" href="/css/header.css">
 <header id="layout-header">
-        <div class="mini-logo">
-            <p>
+        <div >
+            <p class="mini-logo">
                 <a href="/">Authentication</a>
             </p>
         </div>
-        <div class="auth-links">
-            <ul>
+        <div >
+            <ul id="header-menu">
                     <% if(locals.user){%>
-                        <li>
+                        <li class="header-menu-item">
                             <a href="/users/profile/<%= user._id %>"><%= user.name %></a></li>
-                        <li>
+                        <li class="header-menu-item">
                             <a href="/users/logout">Sign-out</a>
                         </li>
                     <%}else{%>
-                    <li>
+                    <li class="header-menu-item">
                         <a href="/users/login">Sign-In</a>
                     </li>
-                    <li>
+                    <li class="header-menu-item">
                         <a href="/users/register">Sign-Up</a>
                     </li>
                     <%}%>

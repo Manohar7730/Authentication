@@ -7,6 +7,7 @@ const postController = require('../controllers/post_controller');
 const passport = require('passport')
 
 router.post('/create',passport.checkAuthentication,postController.create);
+router.get('/delete/:id',passport.checkAuthentication,postController.destroy);
 
 // Export the router to be used in other parts of the application
 module.exports = router;

@@ -4,6 +4,7 @@
   left: 0;
   display: flex;
   width: 100%;
+  height: 50px;
   justify-content: space-between;
   align-items: center;
   background-color: rgb(30, 30, 130);
@@ -11,7 +12,12 @@
   padding: 10px;
 }
 
-.header-content {
+.mini-logo a{
+  color: white;
+  text-decoration: none;
+}
+
+#header-content {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -20,13 +26,13 @@
   margin: 0 auto;
 }
 
-a {
+.header-link {
   text-decoration: none;
   color: white;
   margin-right: 0;
 }
 
-ul {
+#header-menu {
   list-style: none;
   display: flex;
   align-items: center;
@@ -35,8 +41,6 @@ ul {
   padding: 0;
 }
 
-
-
-li {
+.header-menu-item {
   margin-left: 10px;
 }
