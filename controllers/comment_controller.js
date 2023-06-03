@@ -1,5 +1,5 @@
-const Post = require('../models/posts');
-const Comment = require('../models/comments');
+const Post = require('../models/post');
+const Comment = require('../models/comment');
 
 module.exports.create = async (req,res)=>{
     try{
@@ -11,7 +11,7 @@ module.exports.create = async (req,res)=>{
                 user : req.user._id
             });
             post.comments.push(comment);
-            await comment.save();
+            await post.save();
             return res.redirect('back');
         }
     }catch(err){
