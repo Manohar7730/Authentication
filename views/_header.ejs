@@ -10,19 +10,19 @@
             <ul id="header-menu">
                 <% if(locals.user){%>
                     <li class="header-menu-item">
-                        <a class="header-link" href="/user/profile/<%= user._id %>">
+                        <a class="header-link" href="/users/profile/<%= user._id %>">
                             <%= user.name %>
                         </a>
                     </li>
                     <li class="header-menu-item">
-                        <a class="header-link" href="/user/logout">Sign-out</a>
+                        <a class="header-link" href="/users/logout">Sign-out</a>
                     </li>
                     <%}else{%>
                         <li class="header-menu-item">
-                            <a class="header-link" href="/user/login">Sign-In</a>
+                            <a class="header-link" href="/users/login">Sign-In</a>
                         </li>
                         <li class="header-menu-item">
-                            <a class="header-link" href="/user/register">Sign-Up</a>
+                            <a class="header-link" href="/users/register">Sign-Up</a>
                         </li>
                         <%}%>
             </ul>
