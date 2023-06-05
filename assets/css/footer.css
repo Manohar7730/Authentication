@@ -1,3 +1,8 @@
+body{
+  min-height: 100vh; /* Set a minimum height equal to the viewport height */
+  padding-bottom: 50px; /* Adjust the value to match the height of your footer */
+}
+
 #layout-footer {
   position: fixed;
   bottom: 0;

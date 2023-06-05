@@ -103,6 +103,7 @@ module.exports.login = async (req, res) => {
                 console.error(err);
                 return res.status(500).json({ error: 'Internal Server Error' });
             }
+            req.flash('success','Logged In Successfully');
             return res.redirect('/');
         });
     } catch (err) {
@@ -117,6 +118,7 @@ module.exports.logout = (req, res) => {
             console.error(err);
             return res.status(500).json({ error: 'Internal Server Error' });
         }
+        req.flash('success','Logged out successfully')
         return res.redirect('/');
     });
 };
