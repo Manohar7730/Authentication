@@ -8,7 +8,8 @@ $(document).ready(function () {
                 url:'/post/create',
                 data:newPostForm.serialize(),
                 success:function(data){
-                    console.log(data)
+                    let newPost = newPostDom(data.data.post);
+                    $('#post-list-container>ul').prepend(newPost);
                 },
                 error:function(error){
                     console.log(error)
@@ -16,5 +17,31 @@ $(document).ready(function () {
             })
         })
     }
+
+    let newPostDom = function(post){
+        return $(`<li class="post-item" id="post-${ post._id }">
+        <p class="post-item-content">
+                <small><a class="delete-post-button" href="/post/delete/${  post.id }">X</a></small>
+                ${  post.content }
+                        <br>
+                        <small id="post-user-name">
+                        ${  post.user.name }
+                        </small>
+        </p>
+        <div class="post-comments">
+                <form action="/comment/create" method="post">
+                    <input type="text" name="content" placeholder="Type here to add a comment...">
+                    <input type="hidden" name="post" value="${ post._id }">
+                    <input type="submit" value="Add Comment">
+                </form>
+                    <div class="post-comments-list">
+                        <ul id="post-comment-${  post._id }">
+                            
+                        </ul>
+                    </div>
+        </div>
+    </li>`)
+    }
+
     createPost();
 });
