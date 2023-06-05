@@ -1,18 +1,13 @@
-header {
+#home-container{
     display: flex;
-    justify-content: center;
-}
-
-header p {
-    font-size: 1.5rem;
-    font-weight: 600;
-    font-family: cursive;
+    flex-direction: row;
 }
 
 #feed-posts {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 70%;
 }
 
 #new-post-form {
@@ -107,4 +102,10 @@ header p {
     position: relative;
     font-size: 15px;
     color: #888;    
+}
+
+#user-friends{
+    width: 30%;
+    padding: 10px;
+    border-left: 1px solid gainsboro;
 }
