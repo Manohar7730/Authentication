@@ -6,23 +6,26 @@ const LocalStrategy = require('passport-local').Strategy;
 passport.use(
     new LocalStrategy(
         {
-            usernameField: 'email'
+            usernameField: 'email',
+            passReqToCallback : 'true'
         },
-        async (email, password, done) => {
+        async (req,email, password, done) => {
             try {
                 const user = await User.findOne({ email: email });
                 if (!user) {
-                    return done(null, false, { message: 'Invalid Credentials' });
+                    req.flash('error','Invalid Credentials')
+                    return done(null, false)
                 }
 
                 const validPass = await bcryptjs.compare(password, user.password);
                 if (!validPass) {
-                    return done(null, false, { message: 'Invalid Credentials' });
+                    req.flash('error','Invalid Credentials')
+                    return done(null, false)
                 }
 
                 return done(null, user);
             } catch (err) {
-                console.error(err);
+                req.flash('error',err)
                 return done(err);
             }
         }
