@@ -10,12 +10,26 @@ module.exports.profile = async (req, res) => {
         }
 
         // Render the user profile view with the user data
-        return res.render('profile', {  title: `${user.name} Profile`, user: user });
+        return res.render('profile', {  title: `${user.name} Profile`, profile_user: user });
     } catch (err) {
         console.error(err);
         return res.render('error', { title: 'Error', error: err });
     }
 };
+
+module.exports.update = async (req, res) => {
+    try {
+        if(req.user.id == req.params.id){
+            const user = await User.findByIdAndUpdate(req.params.id,req.body);
+            return res.redirect('back');
+        }else{
+            return res.status(404).json({ error: 'Unauthorized' });
+        }
+    } catch (err) {
+        console.error(err);
+        return res.render('error', { title: 'Error', error: err });
+    }
+}
 
 // Render user registration page
 module.exports.Sign_Up = (req, res) => {
