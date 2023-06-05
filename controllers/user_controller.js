@@ -6,7 +6,7 @@ module.exports.profile = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
         if (!user) {
-            return res.render('404', { title: 'User not found' });
+            return res.sendStatus(404);
         }
 
         // Render the user profile view with the user data
@@ -42,12 +42,12 @@ module.exports.register = async (req, res) => {
     try {
         const { error } = registerValidation(req.body);
         if (error) {
-            return res.status(400).send('Invalid Credentials');
+            return res.status(400).json({ error: 'Invalid Credentials' });
         }
 
         const emailExists = await User.findOne({ email: req.body.email });
         if (emailExists) {
-            return res.status(400).send('Email already exists');
+            return res.status(400).json({ error: 'Email already exists' });
         }
 
         const salt = await bcryptjs.genSalt(10);
@@ -63,31 +63,31 @@ module.exports.register = async (req, res) => {
         res.status(201).redirect('/users/login');
     } catch (err) {
         console.error(err);
-        return res.status(400).send(err.message);
+        return res.status(400).json({ error: err.message });
     }
 };
 
 module.exports.login = async (req, res) => {
     const { error } = loginValidation(req.body);
     if (error) {
-        return res.status(401).send('Invalid Credentials');
+        return res.status(401).json({ error: 'Invalid Credentials' });
     }
 
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-        return res.status(401).send('User not found');
+        return res.status(401).json({ error: 'User not found' });
     }
 
     const validPass = await bcryptjs.compare(req.body.password, user.password);
     if (!validPass) {
-        return res.status(401).send('Invalid Password / Username');
+        return res.status(401).json({ error: 'Invalid Password / Username' });
     }
 
     try {
         req.login(user, (err) => {
             if (err) {
                 console.error(err);
-                return res.status(500).send('Internal Server Error');
+                return res.status(500).json({ error: 'Internal Server Error' });
             }
             return res.redirect('/');
         });
@@ -101,7 +101,7 @@ module.exports.logout = (req, res) => {
     req.logout(function (err) {
         if (err) {
             console.error(err);
-            return res.status(500).send('Internal Server Error');
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
         return res.redirect('/');
     });
