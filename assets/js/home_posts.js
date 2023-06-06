@@ -11,6 +11,7 @@ $(document).ready(function () {
                     let newPost = newPostDom(data.data.post);
                     $('#post-list-container>ul').prepend(newPost);
                     deletePost($(' .delete-post-button', newPost));
+                    showNoty('success','Post Published!')
                 },
                 error: function (error) {
                     console.log(error)
@@ -54,6 +55,7 @@ $(document).ready(function () {
                 url: $(deleteLink).prop('href'),
                 success: function (data) {
                     $(`#post-${data.data.post_id}`).remove();
+                    showNoty('success','post Deleted')
                 },
                 error: function (error) {
                     console.log(error, responseText)
@@ -68,3 +70,13 @@ $(document).ready(function () {
 
     createPost();
 });
+
+function showNoty(type,message){
+    new Noty({
+        theme:'relax',
+        text: message,
+        type:type,
+        layout: 'topRight',
+        timeout:1500
+    }).show();
+}
