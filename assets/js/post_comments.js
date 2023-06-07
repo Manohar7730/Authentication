@@ -10,7 +10,17 @@ class PostComments{
             let self = this;
             this.newCommentForm.submit(function (e) {
                 e.preventDefault();
-                // Handle the form submission here
+                $.ajax({
+                    type: 'post',
+                    url: '/comment/create',
+                    data: $(this).serialize(),
+                    success: function(data){
+                        console.log(data);
+                    },
+                    error: function(error){
+                        console.log(error.responseText)
+                    }
+                })
             });
         }
     }

@@ -11,7 +11,7 @@ $(document).ready(function () {
                     let newPost = newPostDom(data.data.post);
                     $('#post-list-container>ul').prepend(newPost);
                     deletePost($(' .delete-post-button', newPost));
-                    showNoty('success','Post Published!');
+                    showNoty('success', 'Post Published!');
                     newPostForm[0].reset();
                 },
                 error: function (error) {
@@ -48,7 +48,6 @@ $(document).ready(function () {
 
     let deletePost = (deleteLink) => {
         $(deleteLink).click((e) => {
-            console.log(deleteLink)
             e.preventDefault();
 
             $.ajax({
@@ -56,7 +55,7 @@ $(document).ready(function () {
                 url: $(deleteLink).prop('href'),
                 success: function (data) {
                     $(`#post-${data.data.post_id}`).remove();
-                    showNoty('success','post Deleted')
+                    showNoty('success', 'post Deleted')
                 },
                 error: function (error) {
                     console.log(error, responseText)
@@ -65,15 +64,15 @@ $(document).ready(function () {
         })
     }
 
-    $(".delete-post-button").each(function(){
+    $(".delete-post-button").each(function () {
         deletePost($(this));
     })
 
-    let convertPostsToAjax = ()=>{
-        $('#post-list-container>ul>li').each(function(){
+    let convertPostsToAjax = () => {
+        $('#post-list-container>ul>li').each(function () {
             let self = $(this);
-        let postId = self.prop('id').split("-")[1];
-        new PostComments(postId);
+            let postId = self.prop('id').split("-")[1];
+            new PostComments(postId);
         })
     }
 
@@ -81,12 +80,12 @@ $(document).ready(function () {
     convertPostsToAjax();
 });
 
-function showNoty(type,message){
+function showNoty(type, message) {
     new Noty({
-        theme:'relax',
+        theme: 'relax',
         text: message,
-        type:type,
+        type: type,
         layout: 'topRight',
-        timeout:1500
+        timeout: 1500
     }).show();
 }
