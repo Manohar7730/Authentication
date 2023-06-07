@@ -17,7 +17,7 @@ class PostComments {
                 data: $(this).serialize(),
                 success: function (data) {
                     let newComment = self.newCommentDom(data.data.comment, data.data.post);
-                    $(`#post-comment-${self.postId}`).append(newComment);
+                    $(`#post-comment-${self.postId}`).prepend(newComment);
                     self.newCommentForm[0].reset();
                 },
                 error: function (error) {
