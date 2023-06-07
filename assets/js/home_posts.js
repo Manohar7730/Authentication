@@ -11,10 +11,11 @@ $(document).ready(function () {
                     let newPost = newPostDom(data.data.post);
                     $('#post-list-container>ul').prepend(newPost);
                     deletePost($(' .delete-post-button', newPost));
-                    showNoty('success','Post Published!')
+                    showNoty('success','Post Published!');
+                    newPostForm[0].reset();
                 },
                 error: function (error) {
-                    console.log(error)
+                    console.log(error.responseText)
                 }
             })
         })
@@ -68,7 +69,16 @@ $(document).ready(function () {
         deletePost($(this));
     })
 
+    let convertPostsToAjax = ()=>{
+        $('#post-list-container>ul>li').each(function(){
+            let self = $(this);
+        let postId = self.prop('id').split("-")[1];
+        new PostComments(postId);
+        })
+    }
+
     createPost();
+    convertPostsToAjax();
 });
 
 function showNoty(type,message){
