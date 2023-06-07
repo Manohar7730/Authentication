@@ -24,6 +24,7 @@ class PostComments {
                     let newComment = self.newCommentDom(data.data.comment, data.data.post);
                     $(`#post-comment-${self.postId}`).prepend(newComment);
                     self.deleteComment($(' .delete-comment-button',newComment));
+                    showNoty('success', 'comment added!');
                     self.newCommentForm[0].reset();
                 },
                 error: function (error) {
@@ -55,6 +56,7 @@ class PostComments {
                 url: $(deleteLink).prop('href'),
                 success: function(data){
                     $(`#comment-${commentId}`).remove();
+                    showNoty('success', 'comment removed');
                 },
                 error: function (error) {
                     console.log(error.responseText);
@@ -63,4 +65,14 @@ class PostComments {
 
         })
     }
+}
+
+function showNoty(type, message) {
+    new Noty({
+        theme: 'relax',
+        text: message,
+        type: type,
+        layout: 'topRight',
+        timeout: 1500
+    }).show();
 }
