@@ -48,6 +48,19 @@ class PostComments {
     deleteComment(deleteLink){
         $(deleteLink).click(function(e){
             e.preventDefault();
+            let commentId = $(deleteLink).attr('href').split('/').pop();
+
+            $.ajax({
+                type : 'get',
+                url: $(deleteLink).prop('href'),
+                success: function(data){
+                    $(`#comment-${commentId}`).remove();
+                },
+                error: function (error) {
+                    console.log(error.responseText);
+                }
+            })
+
         })
     }
 }
