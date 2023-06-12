@@ -10,7 +10,7 @@ module.exports.profile = async (req, res) => {
         }
 
         // Render the user profile view with the user data
-        return res.render('profile', {  title: `${user.name} Profile`, profile_user: user });
+        return res.render('profile', { title: `${user.name} Profile`, profile_user: user });
     } catch (err) {
         console.error(err);
         return res.render('error', { title: 'Error', error: err });
@@ -31,21 +31,25 @@ module.exports.update = async (req, res) => {
     // }
 
     try {
-        let user = await User.findById(req.params.id);
-        User.uploadedAvatar(req,res,function(err){
-            if(err){
-                console.log('*******multer error' , err)
-            }
-            user.name = req.body.name;
-            user.email = req.body.email;
-            if(req.file){
-                user.avatar = User.avatarPath + '/' +  req.file.filename;
-            }
-            user.save();
-            return res.redirect('back');
-        })
+        if (req.user.id == req.params.id) {
+            const user = await User.findByIdAndUpdate(req.params.id);
+            User.uploadedAvatar(req, res, async function (err) {
+                if (err) {
+                    console.log('*****multer error', err);
+                }
+                user.name = req.body.name;
+                user.email = req.body.email;
+                if (req.file) {
+                    user.avatar = User.avatarPath + '/' + req.file.filename;
+                }
+                await user.save();
+                return res.redirect('back');
+            });
+        } else {
+            return res.status(401).send('Unauthorized');
+        }
     } catch (err) {
-        req.flash('error',err);
+        req.flash('error', err);
         return res.render('error', { title: 'Error', error: err });
     }
 }
@@ -122,7 +126,7 @@ module.exports.login = async (req, res) => {
                 console.error(err);
                 return res.status(500).json({ error: 'Internal Server Error' });
             }
-            req.flash('success','Logged In Successfully');
+            req.flash('success', 'Logged In Successfully');
             return res.redirect('/');
         });
     } catch (err) {
@@ -137,7 +141,7 @@ module.exports.logout = (req, res) => {
             console.error(err);
             return res.status(500).json({ error: 'Internal Server Error' });
         }
-        req.flash('success','Logged out successfully')
+        req.flash('success', 'Logged out successfully')
         return res.redirect('/');
     });
 };

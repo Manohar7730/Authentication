@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '..', AVATAR_PATH));
+        cb(null, path.join(__dirname,'..', AVATAR_PATH));
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
@@ -35,7 +35,7 @@ const storage = multer.diskStorage({
 });
 
 userSchema.statics.uploadedAvatar = multer({ storage: storage }).single('avatar');
-userSchema.static.avatarPath = AVATAR_PATH;
+userSchema.statics.avatarPath = AVATAR_PATH;
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;

@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(expressLayouts);
+app.use('/uploads',express.static(__dirname + '/uploads'))
 app.use(express.static('./assets'));
 
 app.set('layout extractStyles', true);
