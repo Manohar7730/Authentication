@@ -32,14 +32,17 @@ app.use(
     secret: 'something',
     saveUninitialized: false,
     resave: false,
-    maxAge: 1000 * 60 * 10,
     store: MongoStore.create({
       mongoUrl: process.env.MONGO_URL,
       mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
-      autoRemove: 'disabled'
+      autoRemove: 'interval',
+      autoRemoveInterval: 10
     }, function(err){
       console.log(err || 'connect-mongodb setup ok');
     }),
+    cookie:{
+      maxAge: 1000 * 60 * 10,
+    }
   })
 );
 
