@@ -36,14 +36,14 @@ module.exports.update = async (req, res) => {
             if(err){
                 console.log('*******multer error' , err)
             }
-            console.log(req.file);
-        })
-        if(req.user.id == req.params.id){
-            const user = await User.findByIdAndUpdate(req.params.id,req.body);
+            user.name = req.body.name;
+            user.email = req.body.email;
+            if(req.file){
+                user.avatar = User.avatarPath + '/' +  req.file.filename;
+            }
+            user.save();
             return res.redirect('back');
-        }else{
-            return res.status(404).json({ error: 'Unauthorized' });
-        }
+        })
     } catch (err) {
         req.flash('error',err);
         return res.render('error', { title: 'Error', error: err });
