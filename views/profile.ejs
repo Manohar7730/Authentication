@@ -2,9 +2,10 @@
 <p>Profile</p>
 
 <%if(user.id==profile_user.id){%>
-    <form action="/users/update/<%= user.id%>" method="post">
+    <form action="/users/update/<%= user.id%>" method="post" enctype="multipart/form-data">
         <input type="text" name="name" placeholder="Your Name..." value="<%= profile_user.name %>" required>
         <input type="email" name="email" placeholder="Your Email..." value="<%= profile_user.email %>" required>
+        <input type="file" name="avatar" placeholder="Profile Picture">
         <input type="submit" value="update">
     </form>
     <%}else{%>

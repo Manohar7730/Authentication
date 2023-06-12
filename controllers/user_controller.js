@@ -18,7 +18,26 @@ module.exports.profile = async (req, res) => {
 };
 
 module.exports.update = async (req, res) => {
+    // try {
+    //     if(req.user.id == req.params.id){
+    //         const user = await User.findByIdAndUpdate(req.params.id,req.body);
+    //         return res.redirect('back');
+    //     }else{
+    //         return res.status(404).json({ error: 'Unauthorized' });
+    //     }
+    // } catch (err) {
+    //     console.error(err);
+    //     return res.render('error', { title: 'Error', error: err });
+    // }
+
     try {
+        let user = await User.findById(req.params.id);
+        User.uploadedAvatar(req,res,function(err){
+            if(err){
+                console.log('*******multer error' , err)
+            }
+            console.log(req.file);
+        })
         if(req.user.id == req.params.id){
             const user = await User.findByIdAndUpdate(req.params.id,req.body);
             return res.redirect('back');
@@ -26,7 +45,7 @@ module.exports.update = async (req, res) => {
             return res.status(404).json({ error: 'Unauthorized' });
         }
     } catch (err) {
-        console.error(err);
+        req.flash('error',err);
         return res.render('error', { title: 'Error', error: err });
     }
 }
