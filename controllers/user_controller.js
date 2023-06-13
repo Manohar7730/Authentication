@@ -1,6 +1,8 @@
 const User = require('../models/user');
 const { registerValidation, loginValidation } = require('../validation');
 const bcryptjs = require('bcryptjs');
+const fs = require('fs');
+const path = require('path');
 
 module.exports.profile = async (req, res) => {
     try {
@@ -40,6 +42,10 @@ module.exports.update = async (req, res) => {
                 user.name = req.body.name;
                 user.email = req.body.email;
                 if (req.file) {
+                    const filePath = path.join(__dirname,'..',user.avatar);
+                    if(fs.existsSync(filePath)){
+                        fs.unlinkSync(filePath)
+                    }
                     user.avatar = User.avatarPath + '/' + req.file.filename;
                 }
                 await user.save();
