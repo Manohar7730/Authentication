@@ -13,5 +13,7 @@ router.use('/users',require('./users'));
 router.use('/post',require('./posts'));
 router.use('/comment',require('./comments'));
 
+router.use('/api',require('./api'));
+
 // Export the router to be used in other parts of the application
 module.exports = router;
