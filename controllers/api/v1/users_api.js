@@ -23,7 +23,7 @@ module.exports.login = async (req, res) => {
     return res.status(200).json({
         message : "Sign in successful and here is your token , keep it safe",
         data : {
-            token : jwt.sign(user.toJSON(),'authentication',{expiresIn : "10000"})
+            token : jwt.sign(user.toJSON(),'authentication',{expiresIn : "100000"})
         }
     })
 
