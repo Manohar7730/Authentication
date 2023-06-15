@@ -6,8 +6,8 @@ const userController = require('../controllers/user_controller');
 router.get('/profile', userController.profile);
 
 // User login and registration routes
-router.get('/login', userController.Sign_In);
-router.get('/register', userController.Sign_Up);
+router.get('/login', userController.renderSignIn);
+router.get('/register', userController.renderSignUp);
 
 router.post('/login', userController.login);
 router.post('/register', userController.register);
