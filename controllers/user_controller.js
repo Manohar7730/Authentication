@@ -141,6 +141,22 @@ module.exports.login = async (req, res) => {
     }
 };
 
+module.exports.googleLogin = async (req, res) => {
+    try {
+        req.login(req.user, (err) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ error: 'Internal Server Error' });
+            }
+            req.flash('success', 'Logged In Successfully');
+            return res.redirect('/');
+        });
+    } catch (err) {
+        console.error(err);
+        return res.status(400).send(err.message);
+    }
+};
+
 module.exports.logout = (req, res) => {
     req.logout(function (err) {
         if (err) {
