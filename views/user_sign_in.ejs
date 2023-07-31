@@ -1,33 +1,42 @@
-<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/login.css" />
 <div class="login-card">
-
-<fieldset>
+  <fieldset>
     <legend>Login Form</legend>
     <form action="/users/login" method="post">
-        <input type="email" name="email" placeholder="Email ID">
-        <br>
-        <br>
-        <input type="password" name="password" id="login-password" placeholder="password">
-        <input type="checkbox" onclick="togglePasswordVisibility('login-password')"> Show password
-        <br>
-        <br>
-        <input type="submit" value="Login">
+      <input type="email" name="email" placeholder="Email ID" />
+      <br />
+      <br />
+      <input
+        type="password"
+        name="password"
+        id="login-password"
+        placeholder="password"
+      />
+      <input
+        type="checkbox"
+        onclick="togglePasswordVisibility('login-password')"
+      />
+      Show password
+      <br />
+      <br />
+      <input type="submit" value="Login" />
     </form>
-</fieldset>
-<div id="register">
-<a href="/users/register">Don't have an account? Register here</a>
-</div>
-<div>
+  </fieldset>
+  <div id="register">
+    <a href="/users/register">Don't have an account? Register here</a>
+  </div>
+  <div>
     <a href="/users/auth/google">google sign-in/sign-up</a>
-</div>
+    <a href="/users/forgot-password">forgot-password</a>
+  </div>
 </div>
 <script>
-    function togglePasswordVisibility(passwordFieldId) {
+  function togglePasswordVisibility(passwordFieldId) {
     const passwordField = document.getElementById(passwordFieldId);
     if (passwordField.type === "password") {
-        passwordField.type = "text";
+      passwordField.type = "text";
     } else {
-        passwordField.type = "password";
+      passwordField.type = "password";
     }
-}
+  }
 </script>
