@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const { registerValidation, loginValidation } = require("../validation");
-const bcryptjs = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 const fs = require("fs");
 const path = require("path");
 const reset_password_mailer = require("../mailers/reset_password_mailer");
@@ -99,8 +99,8 @@ module.exports.register = async (req, res) => {
       return res.status(400).json({ error: "Email already exists" });
     }
 
-    const salt = await bcryptjs.genSalt(10);
-    const hashedPassword = await bcryptjs.hash(req.body.password, salt);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
     const newUser = new User({
       name: req.body.name,
@@ -127,7 +127,7 @@ module.exports.login = async (req, res) => {
     return res.status(401).json({ error: "User not found" });
   }
 
-  const validPass = await bcryptjs.compare(req.body.password, user.password);
+  const validPass = await bcrypt.compare(req.body.password, user.password);
   if (!validPass) {
     return res.status(401).json({ error: "Invalid Password / Username" });
   }
@@ -177,9 +177,10 @@ module.exports.logout = (req, res) => {
 module.exports.forgotPassword = (req, res) => {
   try {
     return res.render("forgot_password", {
-      title: "forgot Password",
+      title: "Forgot Password",
     });
   } catch (err) {
+    console.log(err);
     req.flash("error", err);
     return res.redirect("back");
   }
@@ -189,18 +190,93 @@ module.exports.sendPasswordResetLink = async (req, res) => {
   try {
     const { email } = req.body;
 
+    // Check if the email exists in the User schema
     const user = await User.findOne({ email });
-    if (!User) {
-      req.flash("error", "Email Not Found");
-      return res.redirect("back");
+    if (!user) {
+      req.flash("error", "Email not found.");
+      return res.redirect("/user/forgot-password");
     }
+
+    // Generate and save the reset token in the ResetToken schema using the worker
     const token = await resetToken_email_worker.generateAndSaveToken(user);
-    const resetLink = `http://${req.headers.host}/users/reset_Password?accesstoken=${token}`;
+
+    // Send the password reset link to the user's email using the mailer
+    const resetLink = `http://${req.headers.host}/users/reset_password?accesstoken=${token}`;
     await reset_password_mailer.sendPasswordResetLink(user, resetLink);
 
+    // Redirect to a page to inform the user that the reset link has been sent
     return res.redirect("/");
   } catch (err) {
+    console.log(err);
     req.flash("error", err);
+    return res.redirect("back");
+  }
+};
+
+module.exports.resetPasswordPage = (req, res) => {
+  try {
+    const { accesstoken } = req.query;
+    // Render the reset password page
+    return res.render("reset_password", {
+      title: "Reset Password",
+      accesstoken: accesstoken,
+    });
+  } catch (err) {
+    // Handle errors appropriately
+    req.flash("error", err);
+    return res.redirect("back");
+  }
+};
+
+module.exports.resetPassword = async (req, res) => {
+  try {
+    const { accesstoken, password, confirm_password } = req.body;
+
+    // Check if password and confirm_password match
+    if (password !== confirm_password) {
+      req.flash("error", "Passwords do not match.");
+      return res.redirect("back");
+    }
+
+    // Find the reset token
+    const resetToken = await ResetToken.findOne({ accessToken: accesstoken });
+
+    // If the reset token is not found or not valid, redirect back with an error
+    if (!resetToken || !resetToken.isValid) {
+      req.flash("error", "Invalid or expired reset token.");
+      return res.redirect("back");
+    }
+
+    // Find the associated user
+    const user = await User.findById(resetToken.user);
+
+    // If the user is not found, redirect back with an error
+    if (!user) {
+      req.flash("error", "User not found.");
+      return res.redirect("back");
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(password, 10); // Adjust the salt rounds as needed
+
+    // Update the user's password
+    user.password = hashedPassword;
+    await user.save();
+
+    // Mark the reset token as invalid
+    resetToken.isValid = false;
+    await resetToken.save();
+
+    // Redirect to the login page with a success message
+    req.flash(
+      "success",
+      "Password reset successful. You can now log in with your new password."
+    );
+    return res.redirect("/users/login");
+  } catch (err) {
+    // Handle errors appropriately
+    console.log(err);
+    req.flash("error", err.message);
     return res.redirect("back");
   }
 };

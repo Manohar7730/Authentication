@@ -5,10 +5,11 @@ exports.generateAndSaveToken = async (user) => {
   try {
     const token = crypto.randomBytes(20).toString("hex");
     const resetToken = new ResetToken({
-      user: user.id,
+      user: user._id,
       accessToken: token,
     });
     await resetToken.save();
+    return token;
   } catch (err) {
     req.flash("error", err);
   }
