@@ -265,7 +265,7 @@ module.exports.resetPassword = async (req, res) => {
 
     // Mark the reset token as invalid
     resetToken.isValid = false;
-    await resetToken.save();
+    await ResetToken.findByIdAndRemove(resetToken._id);
 
     // Redirect to the login page with a success message
     req.flash(
