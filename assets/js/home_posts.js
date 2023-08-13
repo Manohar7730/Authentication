@@ -35,8 +35,8 @@ $(document).ready(function () {
                         <br>
                         <small>
                               
-                                  <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${post._id}&type=Post">
-                                      0 Likes
+                                  <a class="toggle-like-button" data-likes="${post.likes.length}" href="/likes/toggle/?id=${post._id}&type=Post">
+                                  <span class="like-count">${post.likes.length} likes</span>
                                   </a>
                               
                           </small>
