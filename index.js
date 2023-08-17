@@ -3,6 +3,7 @@ const cookieParser = require("cookie-parser");
 const expressLayouts = require("express-ejs-layouts");
 
 const env = require("./config/environment");
+const morgan = require("morgan");
 const db = require("./config/mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -15,7 +16,7 @@ const customMiddleware = require("./config/middleware");
 
 const app = express();
 const port = 8000;
-
+console.log(env.name);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
