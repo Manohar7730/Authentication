@@ -1,0 +1,4 @@
+::1 - - [17/Aug/2023:13:52:51 +0000] "GET / HTTP/1.1" 200 2559 "http://localhost:8000/users/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [17/Aug/2023:13:52:53 +0000] "GET /users/login HTTP/1.1" 200 3067 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [17/Aug/2023:13:53:00 +0000] "POST /users/login HTTP/1.1" 302 46 "http://localhost:8000/users/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [17/Aug/2023:13:53:00 +0000] "GET / HTTP/1.1" 200 3323 "http://localhost:8000/users/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"

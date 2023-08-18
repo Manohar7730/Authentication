@@ -25,6 +25,8 @@ app.use(expressLayouts);
 app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use(express.static(env.asset_path));
 
+app.use(morgan(env.morgan.mode, env.morgan.options));
+
 app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
 app.set("view engine", "ejs");
@@ -62,6 +64,7 @@ app.use(flash());
 app.use(customMiddleware.setFlash);
 
 const router = require("./routes/home");
+const environment = require("./config/environment");
 app.use("/", router);
 
 app.listen(port, (err) => {
