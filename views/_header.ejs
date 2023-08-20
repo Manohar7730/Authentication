@@ -1,31 +1,31 @@
-<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="<%= assetPath('css/header.css')%>" />
 <header id="layout-header">
-    <div id="header-content">
-        <div>
-            <p class="mini-logo">
-                <a href="/">Authentication</a>
-            </p>
-        </div>
-        <div>
-            <ul id="header-menu">
-                <% if(locals.user){%>
-                    <li class="header-menu-item">
-                        <a class="header-link" href="/users/profile/<%= user._id %>">
-                            <%= user.name %>
-                        </a>
-                    </li>
-                    <li class="header-menu-item">
-                        <a class="header-link" href="/users/logout">Sign-out</a>
-                    </li>
-                    <%}else{%>
-                        <li class="header-menu-item">
-                            <a class="header-link" href="/users/login">Sign-In</a>
-                        </li>
-                        <li class="header-menu-item">
-                            <a class="header-link" href="/users/register">Sign-Up</a>
-                        </li>
-                        <%}%>
-            </ul>
-        </div>
+  <div id="header-content">
+    <div>
+      <p class="mini-logo">
+        <a href="/">Authentication</a>
+      </p>
     </div>
+    <div>
+      <ul id="header-menu">
+        <% if(locals.user){%>
+        <li class="header-menu-item">
+          <a class="header-link" href="/users/profile/<%= user._id %>">
+            <%= user.name %>
+          </a>
+        </li>
+        <li class="header-menu-item">
+          <a class="header-link" href="/users/logout">Sign-out</a>
+        </li>
+        <%}else{%>
+        <li class="header-menu-item">
+          <a class="header-link" href="/users/login">Sign-In</a>
+        </li>
+        <li class="header-menu-item">
+          <a class="header-link" href="/users/register">Sign-Up</a>
+        </li>
+        <%}%>
+      </ul>
+    </div>
+  </div>
 </header>

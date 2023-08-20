@@ -1,38 +1,58 @@
-<link rel="stylesheet" href="/css/register.css">
+<link rel="stylesheet" href="<%= assetPath('css/register.css')%>" />
 <div class="register-card">
-<fieldset>
+  <fieldset>
     <legend>Register form</legend>
     <form action="/users/register" method="post">
-        <input type="text" name="name" placeholder="Enter name">
-        <br>
-        <br>
-        <input type="text" name="email" placeholder="Enter the email">
-        <br>
-        <br>
-        <input type="password" name="password" id="register-password" placeholder="Enter the password">
-        <input type="checkbox" onclick="togglePasswordVisibility('register-password')"> Show password
-        <br>
-        <br>
-        <input type="password" name="confirm_password" id="confirm-password" placeholder="Enter the password">
-        <input type="checkbox" onclick="togglePasswordVisibility('confirm-password')"> Show password
-        <br>
-        <br>
-        <input type="submit" value="Register">
+      <input type="text" name="name" placeholder="Enter name" />
+      <br />
+      <br />
+      <input type="text" name="email" placeholder="Enter the email" />
+      <br />
+      <br />
+      <input
+        type="password"
+        name="password"
+        id="register-password"
+        placeholder="Enter the password"
+      />
+      <input
+        type="checkbox"
+        onclick="togglePasswordVisibility('register-password')"
+      />
+      Show password
+      <br />
+      <br />
+      <input
+        type="password"
+        name="confirm_password"
+        id="confirm-password"
+        placeholder="Enter the password"
+      />
+      <input
+        type="checkbox"
+        onclick="togglePasswordVisibility('confirm-password')"
+      />
+      Show password
+      <br />
+      <br />
+      <input type="submit" value="Register" />
     </form>
-</fieldset>
+  </fieldset>
 
-<div id="login"><a href="/users/login">Already have an account? Login here</a></div>
-<div>
+  <div id="login">
+    <a href="/users/login">Already have an account? Login here</a>
+  </div>
+  <div>
     <a href="/users/auth/google">google sign-in/sign-up</a>
-</div>
+  </div>
 </div>
 <script>
-    function togglePasswordVisibility(passwordFieldId) {
+  function togglePasswordVisibility(passwordFieldId) {
     const passwordField = document.getElementById(passwordFieldId);
     if (passwordField.type === "password") {
-        passwordField.type = "text";
+      passwordField.type = "text";
     } else {
-        passwordField.type = "password";
+      passwordField.type = "password";
     }
-}
+  }
 </script>
