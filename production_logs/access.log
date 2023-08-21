@@ -298,3 +298,17 @@
 [0mGET / [32m200[0m 32.357 ms - 9979[0m
 [0mGET /users/profile/64e1ce5b5b90a6b90a5bdd81 [32m200[0m 9.935 ms - 2595[0m
 [0mGET /users/profile/64e1ce5b5b90a6b90a5bdd81 [36m304[0m 11.050 ms - -[0m
+::1 - - [20/Aug/2023:08:29:03 +0000] "GET / HTTP/1.1" 200 2326 "http://localhost:8000/users/profile/64e1ce5b5b90a6b90a5bdd81" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [20/Aug/2023:08:29:05 +0000] "GET /users/login HTTP/1.1" 200 2800 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [20/Aug/2023:08:29:12 +0000] "POST /users/login HTTP/1.1" 302 68 "http://localhost:8000/users/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [20/Aug/2023:08:29:12 +0000] "GET /users/login HTTP/1.1" 200 2990 "http://localhost:8000/users/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [20/Aug/2023:08:29:23 +0000] "POST /users/login HTTP/1.1" 302 46 "http://localhost:8000/users/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [20/Aug/2023:08:29:23 +0000] "GET / HTTP/1.1" 200 2915 "http://localhost:8000/users/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [20/Aug/2023:08:29:30 +0000] "POST /post/create HTTP/1.1" 200 266 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [20/Aug/2023:08:29:33 +0000] "POST /comment/create HTTP/1.1" 302 88 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [20/Aug/2023:08:29:33 +0000] "GET / HTTP/1.1" 200 4694 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [20/Aug/2023:08:29:35 +0000] "POST /comment/create HTTP/1.1" 200 584 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [20/Aug/2023:08:29:37 +0000] "POST /comment/create HTTP/1.1" 200 610 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [20/Aug/2023:08:29:38 +0000] "POST /likes/toggle/?id=64e1cef1717627f79b35156e&type=Comment HTTP/1.1" 200 77 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [20/Aug/2023:08:29:39 +0000] "POST /likes/toggle/?id=64e1ceef717627f79b351568&type=Comment HTTP/1.1" 200 77 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+::1 - - [20/Aug/2023:08:29:40 +0000] "POST /likes/toggle/?id=64e1ceef717627f79b351568&type=Comment HTTP/1.1" 200 283 "http://localhost:8000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
