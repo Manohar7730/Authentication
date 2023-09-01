@@ -14,7 +14,7 @@ const customMiddleware = require("./config/middleware");
 
 const app = express();
 const port = 8000;
-// Middleware
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
